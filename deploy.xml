@@ -1,0 +1,73 @@
+
+<project name="jblog-deploy" default="deploy" basedir=".">
+
+
+	<!-- ===========  PART 1.  where static pages are viewed from -->
+
+	<!-- Where your blog is published to. (ie. a doc root on apache) -->
+	<property name="publishToDir" value="/jadn/test" />
+	<property name="publicURL" value="http://jadn.com/test/" />
+
+	<!-- ========== PART 2. JBlog web application resources  -->
+
+	<!-- this is where article data and templates are stored (can be
+  anywhere in the local file system)  -->
+	<property name="dataDir" value="/jadn/test/data" />
+
+	<!-- where jblog.war will be unziped into, ie. the destination
+   directory to use for installing into JSP container -->
+	<property name="webapp.home" value="/var/lib/tomcat5/webapps/" />
+
+
+
+	<!--- =========  In theory, you shouldnt need to modify anything below this -->
+
+	<!-- this effects how many articles are on the first page, older
+  articles are pushed back to the second page (which grows without
+  limit.) -->
+	<property name="articlesOnMainPage" value="8" />
+
+	<!-- do we need to unzip the templates? -->
+	<condition property="templates.needed">
+		<not>
+			<available file="${dataDir}/templates/index.html" />
+		</not>
+	</condition>
+
+
+	<target name="prepare">
+		<mkdir dir="${webapp.home}" />
+		<mkdir dir="${publishToDir}" />
+		<mkdir dir="${dataDir}" />
+		<mkdir dir="${dataDir}/templates" />
+	</target>
+
+	<target name="deploy" depends="prepare,templates">
+		<unzip overwrite="yes" src="jblog.war" dest="${webapp.home}" />
+
+		<!-- these lines are un-indented on purpose, they are written into a property file -->
+		<echo file="${webapp.home}/WEB-INF/settings.prop" append="false">
+# set by build.xml
+publicURL=${publicURL}
+articlesOnMainPage=${articlesOnMainPage}
+publishToDir=${publishToDir}
+dataDir=${dataDir}
+</echo>
+
+		<!-- we echo these just so we can see them on the console. -->
+		<echo>
+    publicURL=${publicURL}
+    articlesOnMainPage=${articlesOnMainPage}
+    publishToDir=${publishToDir}
+    dataDir=${dataDir}
+    </echo>
+
+	</target>
+
+	<!-- only writes the stock templates if they aren't there, thus you can re-deploy
+	(new jblog release) and not overwrite your customized templates -->
+	<target name="templates" depends="prepare" if="templates.needed">
+		<unzip src="templates.zip" dest="${dataDir}/templates" />
+	</target>
+
+</project>

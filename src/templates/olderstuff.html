@@ -1,0 +1,28 @@
+<h2>
+    A simple weblog
+</h2>
+{$ foreach $}
+<table width="99%" border="0" cellspacing="0" cellpadding="0">
+    <tr bgcolor="#EEEEEE">
+        <td align="left" bgcolor="#AACCFF">
+            <font color="#000000">
+                {$ date $}{$ headline $}
+            </font>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top">
+            {$ body $}
+        </td>
+    </tr>
+</table>
+<p>
+    &nbsp;
+<p>
+    {$ next $}
+
+<p>
+    Made using
+    <a href=http://jblog.sf.net>
+        jblog
+    </a>

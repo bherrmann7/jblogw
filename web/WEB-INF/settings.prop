@@ -1,0 +1,18 @@
+
+# set by build.xml
+articlesOnMainPage=8
+
+#publicURL=http://localhost:8080/test
+#publishToDir=/home/bob/ws-rc/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/ROOT/test
+#dataDir=/home/bob/ws/jblogw/data/test
+
+#publishToDir=C:/Documents\ and\ Settings/Robert.herrmann/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/webapps/ROOT/test
+#dataDir=c:/jblogw/data/test
+
+#publicURL=http://jadn.com/~bob/
+#publishToDir=/home/bob/public_html/
+#dataDir=/home/bob/ws/jblogw/data/bob
+
+publicURL=file:///tmp/t/
+publishToDir=/tmp/t
+dataDir=/home/bob/ws/jblogw/data/babypea

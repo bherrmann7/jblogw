@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<rss version="0.92">
+  <channel>
+ <title>Blog title</title>
+    <link>http://jblog.sf.net</link>
+    <description>Blog entries</description>
+    <language>en-us</language>
+    <webMaster>bob@jadn.com</webMaster>
+    <image>
+      <title>image title</title>
+      <url></url>
+      <link>http://jblog.sf.net</link>
+      <width>89</width>
+      <height>67</height>
+      <description>more...</description>
+    </image>
+{$ foreach $}
+	<item><title>{$ headline $} - {$ date $}</title>
+     <description>{$ body $}</description>
+	<link>http://jbum.sf.net</link>
+</item>
+    {$ next $}
+  </channel>
+</rss>

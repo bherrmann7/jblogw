@@ -1,0 +1,8 @@
+
+The quick way to install this is just use ant to publish into tomcat,
+
+ant -Dapp.name=bob -DpublicURL=http://www.jadn.com/~bob -DpublishToDir=/home/bob/public_html -DdataDir=/home/bob/.jblog install
+
+This assumes that your have added catalina-ant.jar to ant's classpath
+
+-bob

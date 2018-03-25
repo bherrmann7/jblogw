@@ -1,0 +1,61 @@
+
+<project name="jblog" default="all" basedir=".">
+	<property name="build.home" value="build" />
+	<property name="web.home" value="web" />
+	<property name="src.home" value="src" />
+    <property name="servlet.home" value="/opt/tomcat/lib/servlet-api.jar" />
+<!--	<property name="servlet.home" value="/usr/share/java/servletapi5.jar" /> -->
+
+	<target name="all" depends="clean,compile,war,site" />
+
+	<target name="clean">
+		<delete dir="${build.home}" />
+		<delete dir="${dist.home}" />
+	</target>
+
+	<target name="compile" depends="prepare">
+
+		<mkdir dir="${build.home}/WEB-INF/classes" />
+		<javac srcdir="${src.home}" destdir="${build.home}/WEB-INF/classes"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+               optimize="${compile.optimize}"
+               classpath="${servlet.home}:src/junit.jar:/opt/java/latest/jre/lib/rt.jar">
+		</javac>
+
+		<!-- Copy application resources -->
+		<copy todir="${build.home}/WEB-INF/classes">
+			<fileset dir="${src.home}" excludes="**/*.java" />
+		</copy>
+
+	</target>
+
+
+	<target name="war" depends="compile">
+		<war destfile="jblog.war" webxml="build/WEB-INF/web.xml">
+			<fileset dir="build" excludes="**/web.xml" />
+		</war>
+	</target>
+
+	<target name="site">
+        <copy verbose="yes" todir="/home/bob/public_html/jblog/" file="jblog.war" />
+        <copy verbose="yes" todir="/home/bob/public_html/jblog/" file="templates.zip" />
+    </target>
+
+	<target name="prepare">
+
+		<!-- Create build directories as needed -->
+		<mkdir dir="${build.home}" />
+		<mkdir dir="${build.home}/WEB-INF" />
+		<mkdir dir="${build.home}/WEB-INF/classes" />
+
+		<!-- Copy static content of this web application -->
+		<copy todir="${build.home}">
+			<fileset dir="${web.home}" />
+		</copy>
+
+        <zip destfile="templates.zip"  basedir="src/templates/"  />
+
+	</target>
+
+</project>

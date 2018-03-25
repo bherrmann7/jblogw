@@ -1,0 +1,9 @@
+.idea
+deploy.sh deploy.xml
+bob.xml
+templates.zip
+jblog.war
+jblogw.iml
+babypea.xml
+deploy.sh
+data/
